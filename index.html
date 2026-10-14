@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Finger Sign Recognition | rnly_ignc</title>
+  <meta name="description" content="Real-time one, two and three finger sign recognition using a Google Teachable Machine image model.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <a class="brand" href="#" id="brandLink">rnly_ignc</a>
+  </header>
+
+  <main id="main">
+    <!-- LANDING -->
+    <section id="landing" class="view landing">
+      <div class="hero">
+        <p class="wordmark">rnly_ignc</p>
+        <p class="tag">Teachable Machine · Image Model</p>
+        <h1>Finger Sign <span>Recognition</span></h1>
+        <p class="lead">Show one, two or three fingers to your camera and watch the model tell them apart live, right in your browser.</p>
+        <div class="cta-row">
+          <button id="startBtn" class="btn primary" type="button">Start Recognition</button>
+          <a class="btn ghost" href="#guide">See the signs</a>
+        </div>
+        <p class="note">Your camera stays on your device. No video is uploaded or stored.</p>
+      </div>
+
+      <div class="guide" id="guide">
+        <h2>The three signs</h2>
+        <ul class="signs">
+          <li class="sign-card">
+            <svg viewBox="0 0 100 120" aria-hidden="true"><use href="#hand1"/></svg>
+            <h3>One Finger</h3><p>Raise your index finger.</p>
+          </li>
+          <li class="sign-card">
+            <svg viewBox="0 0 100 120" aria-hidden="true"><use href="#hand2"/></svg>
+            <h3>Two Fingers</h3><p>Raise index and middle fingers.</p>
+          </li>
+          <li class="sign-card">
+            <svg viewBox="0 0 100 120" aria-hidden="true"><use href="#hand3"/></svg>
+            <h3>Three Fingers</h3><p>Raise index, middle and ring fingers.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RECOGNITION -->
+    <section id="recognition" class="view recog" hidden>
+      <div class="recog-head">
+        <button id="backBtn" class="btn ghost small" type="button">Back</button>
+        <div class="status" role="status" aria-live="polite">
+          <span id="statusDot" class="dot"></span><span id="statusText">Camera off</span>
+        </div>
+      </div>
+
+      <div class="recog-grid">
+        <div class="cam-wrap">
+          <div id="webcam-container" class="cam" aria-label="Live camera feed">
+            <div id="camPlaceholder" class="cam-placeholder">Camera preview appears here</div>
+          </div>
+          <div class="controls">
+            <button id="toggleBtn" class="btn primary" type="button">Stop Recognition</button>
+          </div>
+        </div>
+
+        <div class="result-wrap">
+          <div id="errorBox" class="error" role="alert" hidden></div>
+
+          <div class="result" aria-live="polite">
+            <p class="result-label">Detected sign</p>
+            <p id="resultName" class="result-name">Waiting for camera…</p>
+            <div class="conf-head"><span>Confidence</span><strong id="confText">0%</strong></div>
+            <div class="bar big"><i id="confBar"></i></div>
+          </div>
+
+          <div class="all-probs">
+            <h2>All predictions</h2>
+            <div id="label-container"></div>
+          </div>
+
+          <div class="mini-guide" aria-label="Sign examples">
+            <svg viewBox="0 0 100 120" aria-label="One finger"><use href="#hand1"/></svg>
+            <svg viewBox="0 0 100 120" aria-label="Two fingers"><use href="#hand2"/></svg>
+            <svg viewBox="0 0 100 120" aria-label="Three fingers"><use href="#hand3"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="steps" id="steps">
+        <div class="steps-head"><h2>Your progress</h2><strong id="progText">0 of 3 complete</strong></div>
+        <div class="bar big"><i id="progBar"></i></div>
+        <p id="stepMsg" class="step-msg" role="status" aria-live="polite">Show a sign and hold it steady to complete each step.</p>
+        <div class="hold" aria-hidden="true"><i id="holdBar"></i></div>
+        <ul class="goal-signs">
+          <li class="goal-sign" data-step="1"><svg viewBox="0 0 100 120" aria-hidden="true"><use href="#hand1"/></svg><h3>One Finger</h3><span class="state">Waiting</span></li>
+          <li class="goal-sign" data-step="2"><svg viewBox="0 0 100 120" aria-hidden="true"><use href="#hand2"/></svg><h3>Two Fingers</h3><span class="state">Waiting</span></li>
+          <li class="goal-sign" data-step="3"><svg viewBox="0 0 100 120" aria-hidden="true"><use href="#hand3"/></svg><h3>Three Fingers</h3><span class="state">Waiting</span></li>
+        </ul>
+        <button id="resetBtn" class="btn ghost small" type="button">Reset progress</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">Ronalyn C. Ignacio · BS Computer Science, PCU Manila</footer>
+
+  <!-- Hand icons: palm + raised fingers -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="palm" fill="currentColor"><rect x="22" y="62" width="56" height="52" rx="22"/><rect x="2" y="70" width="18" height="12" rx="6" transform="rotate(-25 11 76)"/></g>
+      <g id="hand1"><use href="#palm"/><rect x="34" y="8" width="13" height="62" rx="6.5" fill="currentColor"/></g>
+      <g id="hand2"><use href="#palm"/><rect x="26" y="12" width="13" height="58" rx="6.5" fill="currentColor"/><rect x="42" y="4" width="13" height="66" rx="6.5" fill="currentColor"/></g>
+      <g id="hand3"><use href="#palm"/><rect x="24" y="16" width="13" height="54" rx="6.5" fill="currentColor"/><rect x="40" y="6" width="13" height="64" rx="6.5" fill="currentColor"/><rect x="56" y="16" width="13" height="54" rx="6.5" fill="currentColor"/></g>
+    </defs>
+  </svg>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
